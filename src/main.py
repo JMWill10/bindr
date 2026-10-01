@@ -1,30 +1,15 @@
-import requests
-import os
-from dotenv import load_dotenv
+from handlers.getPokemonCardDataHandler import *
 
-load_dotenv(".env.local")
+pokemonName = ""
+while True:
+    print('Hello, Welcome to Bindr!')
+    pokemonName = input('Please choose a pokemon to look up that card data (input end to terminate): \n')
+    
+    if pokemonName.lower() == "end":
+        print("Come again!!")
+        break
 
-baseUrl = "https://api.tcgapi.dev/v1"
+    pokemonData = getData(pokemonName)
 
-query_params = {
-    "q": "mew",
-    "game": "pokemon"
-}
-
-headers = {
-    "X-API-Key": os.getenv("TCGAPI_KEY")
-}
-
-try:
-    response = requests.get(f"{baseUrl}/search", params=query_params, headers=headers)
-
-    response.raise_for_status()
-
-    card_data = response.json()
-    print("Got Card Data:")
-    print(card_data)
-
-except requests.exceptions.HTTPError as http_err:
-    print(f"HTTP error occurred: {http_err}")
-except Exception as err:
-    print(f"An unexpected error occurred: {err}")
+    print('Here is your pokemon!\n')
+    print(pokemonData)
