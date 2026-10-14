@@ -1,10 +1,8 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Blueprint
+from src.handlers.getPokemonCardDataHandler import getPokemonDataHandler
 
-app = Flask(__name__)
+tcgApiController = Blueprint('pkmn', __name__)
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-@app.route("/card/<str:name>", methods=["GET"])
+@tcgApiController.route("/card/<string:name>", methods=["GET"])
 def getPokemonCardData(name):
-    return "Totodile is coolß"
+    return getPokemonDataHandler(name)

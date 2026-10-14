@@ -3,7 +3,7 @@ import os
 import requests
 
 
-def getData(name: str):
+def getPokemonDataHandler(name: str):
     load_dotenv(".env.local")
 
     baseUrl = os.getenv("TCGAPI_URL")
